@@ -22,6 +22,9 @@ public class EntangledBlockEntityRenderer implements CustomBlockEntityRenderer<E
 
     @Override
     public void render(EntangledBlockEntity entity, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int combinedLight, int combinedOverlay){
+        if(!EntangledConfig.renderBlockEntity.get())
+            return;
+
         if(!entity.isBound())
             return;
 

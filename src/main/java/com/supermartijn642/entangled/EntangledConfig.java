@@ -11,6 +11,7 @@ import java.util.function.Supplier;
 public class EntangledConfig {
 
     public static final Supplier<Boolean> renderBlockHighlight;
+    public static final Supplier<Boolean> renderBlockEntity;
     public static final Supplier<Boolean> rotateRenderedBlock;
 
     public static final Supplier<Boolean> allowDimensional;
@@ -18,16 +19,22 @@ public class EntangledConfig {
 
     static{
         IConfigBuilder builder = ConfigBuilders.newTomlConfig("entangled", null, false);
+
         builder.push("Client");
         renderBlockHighlight = builder
             .dontSync()
             .comment("When looking at an Entangled Block, should its bound block be highlighted?")
             .define("renderBlockHighlight", true);
+        renderBlockEntity = builder
+                .dontSync()
+                .comment("Should the block be rendered?")
+                .define("renderBlockEntity", true);
         rotateRenderedBlock = builder
             .dontSync()
             .comment("Should the block rendered inside entangled blocks rotate?")
             .define("rotateRenderedBlock", true);
         builder.pop();
+
         builder.push("General");
         allowDimensional = builder
             .comment("Can entangled blocks be bound between different dimensions? Previously bound entangled blocks won't be affected.")
@@ -36,6 +43,7 @@ public class EntangledConfig {
             .comment("What is the max range in which entangled blocks can be bound? Only affects blocks in the same dimension. -1 for infinite range. Previously bound entangled blocks won't be affected.")
             .define("maxDistance", -1, -1, Integer.MAX_VALUE);
         builder.pop();
+
         builder.build();
     }
 }
